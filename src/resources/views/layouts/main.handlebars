@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>NVD BLOG</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="/vendor/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+
+	<!-- Custom fonts for this template -->
+	<link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet'
+		type='text/css'>
+	<link
+		href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+		rel='stylesheet' type='text/css'>
+
+	<!-- Custom styles for this template -->
+	<link href="/css/clean-blog.min.css" type="text/css" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="/css/login.css">
+	<link type="text/css" rel="stylesheet" href="/css/posts-manager.css">
+
+	<script src="/vendor/jquery/jquery.min.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+	<!-- Custom scripts for this template -->
+	<script src="/js/clean-blog.min.js"></script>
+</head>
+
+<body>
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+		<div class="container">
+			<a class="navbar-brand" href="/">
+				<h1>TEST</h1>
+			</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+				aria-label="Toggle navigation">
+				Menu
+				<i class="fas fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/">Trang chủ</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/about">My CV</a>
+					</li>
+					{{#if isLogged}}
+					<li class="nav-item">
+						<a class="nav-link" href="/posts/manage/1">Bài viết</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link">Xin chào: {{username}}</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/auth/logout">Đăng xuất</a>
+					</li>
+					{{else}}
+					<li class="nav-item">
+						<a id="login" class="nav-link" data-toggle="modal" data-target="#myModal">Đăng nhập</a>
+					</li>
+					{{/if}}
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Page Header -->
+	<header class="masthead" style="background-image: url('/img/home-bg.jpg')">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<div class="site-heading">
+						<h1></h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<!-- Main Content -->
+	{{{body}}}
+
+	<hr>
+
+	<!-- Footer -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<ul class="list-inline text-center">
+						<li class="list-inline-item">
+							<a href="https://www.facebook.com/kyo.hiraky/" target="blank">
+								<span class="fa-stack fa-lg">
+									<i class="fas fa-circle fa-stack-2x"></i>
+									<i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+								</span>
+							</a>
+						</li>
+						<li class="list-inline-item">
+							<a href="#">
+								<span class="fa-stack fa-lg">
+									<i class="fas fa-circle fa-stack-2x"></i>
+									<i class="fab fa-github fa-stack-1x fa-inverse"></i>
+								</span>
+							</a>
+						</li>
+					</ul>
+					<p class="copyright text-muted">Copyright &copy; Your Website 2020</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Modal -->
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Tài khoản</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<form action="/auth/login" method="post">
+					<div class="modal-body">
+						<div class="img">
+							<img src="/img/img_avatar2.png" alt="Avatar" class="avatar">
+						</div>
+						<div class="container">
+							<label for="uname"><b>Username</b></label>
+							<input type="text" placeholder="Enter Username" id="username" name="username">
+							<label for="psw"><b>Password</b></label>
+							<input type="password" placeholder="Enter Password" id="password" name="password">
+							<p id="notice" class="text-left text-danger text-xs"></p>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default mr-3 btn-danger" data-dismiss="modal">Đóng</button>
+						<button type="submit" id="btn" class="btn btn-default btn-success">Đăng nhập</button>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript">
+
+
+		$('#btn').on('click', function () {
+			let username = $('#username').val();
+			let password = $('#password').val();
+			if (username === '' || password === '') {
+				$('#notice').text('Tên đăng nhập hoặc mật khẩu không được trống');
+				return false;
+			} else {
+				$('#notice').text('');
+			}
+
+		});
+
+		$('#login').on("click", function () {
+			$('#myModal').modal("show");
+		});
+
+
+	</script>
+
+
+	{{#if message}}
+	<script type="text/javascript">
+		swal("Thành công", "{{{message}}}", "success");
+	</script>
+	{{/if}}
+	{{#if error }}
+	<script type="text/javascript">
+		swal("Có lỗi xảy ra", "{{{error}}}", "error");
+	</script>
+	{{/if}}
+</body>
+
+</html>

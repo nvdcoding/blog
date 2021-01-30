@@ -1,0 +1,45 @@
+<div class="container">
+  <a href="/posts/new"><button type="button" style="border-radius: 50%;" class="btn btn-outline-success mb-3"><i
+        class="fas fa-plus"></i></button></a>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="table-dark">
+        <tr>
+          <td>Tên bài viết</td>
+          <td>Mô tả</td>
+          <td>Thao tác</td>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each posts}}
+        <tr>
+          <td>{{this.title}}</td>
+          <td>{{this.description}}</td>
+          <td>
+            <a  href="#" data-id="{{this._id}}" class="remove"><i class="far fa-trash-alt"></i></a>
+            <a href="/posts/manage/update/{{this._id}}"><i class="fas fa-edit"></i></a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <div class="btn-group float-right" role="group">
+      <a href="{{prevPage}}" class="btn btn-secondary btn-xs mx-1" role="button">&#9664;</a>
+      <a href="{{nextPage}}" class="btn btn-secondary btn-xs" role="button">&#9654;</a>
+    </div>
+  </div>
+</div>
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.remove').click(function(){
+      const id = $(this).attr("data-id");
+      $.ajax('http://localhost:3000/posts/manage/remove/' + id, {
+        success: function(data) {
+          window.location.reload()
+        },
+        method: 'DELETE'
+      });
+    });
+  });
+  </script>
