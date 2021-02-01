@@ -31,8 +31,6 @@ app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'resources', 'views'));
 
-
-
 app.get('/', (req, res) => {
   res.redirect('/1');
 });
