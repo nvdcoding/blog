@@ -8,7 +8,7 @@ module.exports = {
                 useUnifiedTopology: true
             });
         } catch (error) {
-            
+            console.log(error);
         }
     }
 }
