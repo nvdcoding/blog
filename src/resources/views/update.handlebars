@@ -66,12 +66,12 @@
 			formData.append("content", content);
 			formData.append("thumbnail", $('#thumbnail')[0].files[0]);
 			const id = '{{{post._id}}}';
-			$.ajax('http://localhost:3000/posts/manage/update/' + id, {
+			$.ajax('/posts/manage/update/' + id, {
 				data: formData,
 				processData: false,
 				contentType: false,
         success: function(data) {
-          window.location.assign('http://localhost:3000/posts/manage/1');
+          window.location.assign('/posts/manage/1');
         },
         method: 'PUT'
       });

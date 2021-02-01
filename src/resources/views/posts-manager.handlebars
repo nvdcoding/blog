@@ -16,7 +16,7 @@
           <td>{{this.title}}</td>
           <td>{{this.description}}</td>
           <td>
-            <a  href="#" data-id="{{this._id}}" class="remove"><i class="far fa-trash-alt"></i></a>
+            <a href="#" data-id="{{this._id}}" class="remove"><i class="far fa-trash-alt"></i></a>
             <a href="/posts/manage/update/{{this._id}}"><i class="fas fa-edit"></i></a>
           </td>
         </tr>
@@ -34,7 +34,7 @@
   $(document).ready(function(){
     $('.remove').click(function(){
       const id = $(this).attr("data-id");
-      $.ajax('http://localhost:3000/posts/manage/remove/' + id, {
+      $.ajax('/posts/manage/remove/' + id, {
         success: function(data) {
           window.location.reload()
         },

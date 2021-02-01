@@ -51,7 +51,6 @@ class PostController {
   store(req, res) {
     const image = req.files.thumbnail;
     image.mv(path.resolve(process.cwd(), 'src', 'resources', 'public', 'img', 'post', image.name), (err) => {
-      console.log(path.resolve(process.cwd(), 'src', 'resources', 'public', 'img', 'post', image.name));
       Post.create({
         ...req.body,
         thumbnail: '\\img\\post\\' + image.name,
