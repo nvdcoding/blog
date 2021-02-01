@@ -5,7 +5,7 @@ const path = require('path');
 
 const exphbs  = require('express-handlebars');
 
-const expressSession = require('express-session');
+const cookieSession = require('cookie-session');
 const fileUpload = require('express-fileupload')
 const bodyParser = require('body-parser');
 
@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static('src/resources/public'));
 
 app.use(fileUpload());
-app.use(expressSession({
+app.use(cookieSession({
   secret: 'secret',
   resave: true, 
   saveUninitialized: true, 
