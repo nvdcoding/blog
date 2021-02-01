@@ -8,6 +8,8 @@ class PostController {
     res.render('post', {
       isLogged: req.session.logged,
       username: req.session.username || '',
+      error: req.query?.error,
+      message: req.query?.message
     });
   }
 
@@ -26,6 +28,8 @@ class PostController {
         res.render('update', {
           isLogged: req.session.logged,
           username: req.session.username || '',
+          error: req.query?.error,
+          message: req.query?.message,
           post: mongooseToObject(post)
         });
       }
@@ -37,6 +41,8 @@ class PostController {
       res.render('post', {
         isLogged: req.session?.logged,
         username: req.session?.username || '',
+        error: req.query?.error,
+        message: req.query?.message,
         post: mongooseToObject(post)
       });
     });

@@ -14,7 +14,6 @@ class SiteController {
   index(req, res, next) {
     let perPage = 10;
     let page = parseInt(req.params.page) || 1;
-    console.log(page);
     Post.find({})
       .skip((perPage * page) - perPage)
       .limit(perPage)

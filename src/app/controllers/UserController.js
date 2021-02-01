@@ -5,11 +5,17 @@ class LoginController {
 
   login(req, res) {
     const { username, password } = req.body;
-    User.findOne({ username: username, password: password }, (err, user) => {
+    User.findOne({ username: username }, (err, user) => {
       if(user) {
-        req.session.logged = true;
-        req.session.username = username;
-        res.redirect('/posts/manage/1?message=Đăng nhập thành công');
+        bcrypt.compare(password, user.password, (err, same) => {
+          if(same) {
+            req.session.logged = true;
+            req.session.username = username;
+            res.redirect('/posts/manage/1?message=Đăng nhập thành công');
+          } else {
+            res.redirect('/?error=Tài khoản hoặc mật khẩu không đúng');
+          }
+        });
       } else {        
         res.redirect('/?error=Tài khoản hoặc mật khẩu không đúng');
       }
@@ -17,9 +23,8 @@ class LoginController {
   }
   
   logout(req, res) {
-      req.session.destroy(() => {
+      req.session = null;
       res.redirect('/');
-    });
   }
 
 }
